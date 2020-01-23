@@ -174,8 +174,14 @@ bindsym --whole-window --border $mod+button5 exec "pactl set-sink-volume 0 -5%"
 exec --no-startup-id 'dropbox'
 
 # Configurações para máquina do PoP-ES
-exec i3-msg 'workspace 1; move to output VGA-1;  workspace 1; exec /usr/bin/firefox'
-exec i3-msg 'workspace 2; move to output HDMI-1; workspace 2; exec /usr/bin/i3-sensible-terminal'
-exec i3-msg 'workspace 9; move to output HDMI-1; workspace 9; exec /usr/bin/zoiper'
+
+exec --no-startup-id i3-msg 'workspace 1; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace 9; exec /usr/bin/zoiper'
+
+workspace 1 output VGA-1
+workspace 2 output HDMI-1
+workspace 9 output HDMI-1
+
 exec --no-startup-id 'owncloud'
 
