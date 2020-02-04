@@ -173,6 +173,7 @@ bindsym --whole-window --border $mod+button4 exec "pactl set-sink-volume 0 +5%"
 bindsym --whole-window --border $mod+button5 exec "pactl set-sink-volume 0 -5%"
 
 exec --no-startup-id 'dropbox'
+exec --no-startup-id 'redshift-gtk'
 
 # Configurações para máquina do PoP-ES
 
