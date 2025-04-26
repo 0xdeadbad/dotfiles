@@ -80,10 +80,11 @@
    "<M-up>"    #'drag-stuff-up
    "<M-down>"  #'drag-stuff-down
    "<M-left>"  #'drag-stuff-left
-   "<M-right>" #'drag-stuff-right))
+   "<M-right>" #'drag-stuff-right)
+  (drag-stuff-global-mode nil))
 
-(after! drag-stuff
-  (setq drag-stuff-mode t))
+;; (after! drag-stuff
+;;   (setq drag-stuff-global-mode t))
 
 (after! wakatime-mode
   (setq global-wakatime-mode t))
@@ -94,3 +95,18 @@
 (after! eglot
   :config
   (set-eglot-client! 'typescript-mode '("deno" "lsp")))
+
+(after! projectile (setq projectile-project-root-files-bottom-up (remove ".git"
+                                                                         projectile-project-root-files-bottom-up)))
+
+;; accept completion from copilot and fallback to company
+;; (use-package! copilot
+;;   :hook (prog-mode . copilot-mode)
+;;   :bind (:map copilot-completion-map
+;;               ("<tab>" . 'copilot-accept-completion)
+;;               ("TAB" . 'copilot-accept-completion)
+;;               ("C-TAB" . 'copilot-accept-completion-by-word)
+;;               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")

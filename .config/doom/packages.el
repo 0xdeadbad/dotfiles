@@ -72,3 +72,8 @@
   :disable t)
 (package! harpoon)
 (package! mos-mode)
+(package! fennel-mode)
+(package! fzf)
+(package! copilot
+  :disable t
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
