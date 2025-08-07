@@ -75,5 +75,18 @@
 (package! fennel-mode)
 (package! fzf)
 (package! copilot
-  :disable t
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+(package! gml-mode :recipe
+  (:host github
+   :repo "nexhero/gml-mode"
+   :files ("gml_mode.lisp")))
+(package! dired-ranger)
+(package! ranger)
+(package! chatgpt-shell
+  :disable t)
+(package! elpher)
+(package! nginx-mode)
+(package! forge)
+(package! realgud)
+(package! realgud-lldb)
+(package! eldoc-box)

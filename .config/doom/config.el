@@ -81,7 +81,7 @@
    "<M-down>"  #'drag-stuff-down
    "<M-left>"  #'drag-stuff-left
    "<M-right>" #'drag-stuff-right)
-  (drag-stuff-global-mode nil))
+  (drag-stuff-global-mode 1))
 
 ;; (after! drag-stuff
 ;;   (setq drag-stuff-global-mode t))
@@ -107,6 +107,62 @@
 ;;               ("TAB" . 'copilot-accept-completion)
 ;;               ("C-TAB" . 'copilot-accept-completion-by-word)
 ;;               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+;;
+(use-package! slime
+  :defer t ; don't load the package immediately
+  :init ; runs this immediately
+  (setq inferior-lisp-program "sbcl")
+  :config ; runs this when slime loads
+  (set-repl-handler! 'lisp-mode #'sly-mrepl)
+  (set-eval-handler! 'lisp-mode #'sly-eval-region)
+  (set-lookup-handlers! 'lisp-mode
+    :definition #'sly-edit-definition
+    :documentation #'sly-describe-symbol)
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
+  (add-hook 'lisp-mode-hook #'rainbow-delimiters-mode))
+
+;; (map!
+;;  "C-x t <right>" #'centaur-tabs-forward
+;;  "C-x t <left>" #'centaur-tabs-backward)
+
+
+;; (map!
+;;  "SPC v h" #'split-window-horizontally
+;;  "SPC v v" #'split-window-vertically)
+
+
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode)
+
+;; (map!
+;;  "C-x t <right>" #'centaur-tabs-forward
+;;  "C-x t <left>" #'centaur-tabs-backward
+;;  "C-x w <right>" #'+workspace/swap-right
+;;  "C-x w <left>" #'+workspace/swap-left)
+
+(map!
+ "<S-left>" #'centaur-tabs-backward
+ "<S-right>" #'centaur-tabs-forward)
+
+(map! :leader
+      :prefix ("m" . "makefile")
+      :desc "Select Makefile target to run" :n "m" #'+make/run)
+
+;; (setenv "SSH_AUTH_SOCK" (shell-command-to-string "gpgconf --list-dirs agent-ssh-socket"))
+(setenv "SSH_AUTH_SOCK" (string-chop-newline (shell-command-to-string "gpgconf --list-dirs agent-ssh-socket")))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+;; (after! realgud
+;;   ())
+;;
+
+(setq drag-stuff-global-mode 1)
+(setq markdown-command "/usr/bin/pandoc")
